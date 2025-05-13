@@ -73,22 +73,46 @@ Je voudrais visiter le musée demain.
 <br>
 
 ## Give me an example dataset to use?
+
+Here's how your dataset might look for training AI on cybersecurity topics:
+
 ```json
 [
     {
-        "instruction": "Give three tips for staying healthy.",
+        "instruction": "Explain how SQL injection attacks work and how to prevent them.",
         "input": "",
-        "output": "1. Eat a balanced and nutritious diet: Make sure your meals are inclusive of a variety of fruits and vegetables, lean protein, whole grains, and healthy fats. This helps to provide your body with the essential nutrients to function at its best and can help prevent chronic diseases.\n\n2. Engage in regular physical activity: Exercise is crucial for maintaining strong bones, muscles, and cardiovascular health. Aim for at least 150 minutes of moderate aerobic exercise or 75 minutes of vigorous exercise each week.\n\n3. Get enough sleep: Getting enough quality sleep is crucial for physical and mental well-being. It helps to regulate mood, improve cognitive function, and supports healthy growth and immune function. Aim for 7-9 hours of sleep each night."
+        "output": "SQL injection is an attack where malicious SQL code is inserted into database queries through unsanitized user input. Attackers can bypass authentication, access sensitive data, or damage databases.\n\nTo prevent SQL injection:\n1. Use parameterized queries/prepared statements\n2. Implement input validation and sanitization\n3. Apply the principle of least privilege for database accounts\n4. Utilize ORM frameworks that handle SQL escaping\n5. Employ WAF (Web Application Firewall) protection"
     },
     {
-        "instruction": "What are the three primary colors?",
-        "input": "",
-        "output": "The three primary colors are red, blue, and yellow. These colors are called primary because they cannot be created by mixing other colors and all other colors can be made by combining them in various proportions. In the additive color system, used for light, the primary colors are red, green, and blue (RGB)."
-    },
-    {
-        "instruction": "Based on the information provided, rewrite the sentence by changing its tense from past to future.",
-        "input": "She played the piano beautifully for hours and then stopped as it was midnight.",
-        "output": "She will play the piano beautifully for hours and then stop as it will be midnight."
+        "instruction": "Identify security vulnerabilities in this code snippet and suggest fixes.",
+        "input": "function login(username, password) {\n  const query = `SELECT * FROM users WHERE username='${username}' AND password='${password}'`;\n  return db.execute(query);\n}",
+        "output": "Vulnerabilities identified:\n1. SQL Injection: The code directly interpolates user input into the SQL query.\n2. Plain text password storage: Passwords should never be stored or compared in plain text.\n\nRecommended fixes:\n1. Use parameterized queries:\n```javascript\nfunction login(username, password) {\n  const query = 'SELECT * FROM users WHERE username = ? AND password = ?';\n  return db.execute(query, [username, password]);\n}\n```\n\n2. Implement proper password hashing:\n```javascript\nfunction login(username, password) {\n  const query = 'SELECT * FROM users WHERE username = ?';\n  const user = db.execute(query, [username]);\n  if (!user) return null;\n  return bcrypt.compare(password, user.passwordHash) ? user : null;\n}\n```"
     }
 ]
 ```
+
+<br>
+
+**Simulated Chat Using This Training:**
+
+```bash
+User: Analyze this Apache log entry for potential security threats:
+      192.168.1.20 - - [10/May/2023:13:55:36 -0700] "GET /admin/config.php?auth_bypass=1' OR '1'='1 HTTP/1.1" 200 4523
+
+AI: [analyzes the specific log entry]
+    [identifies patterns matching known attack signatures]
+    [applies security knowledge to this specific input]
+
+Security threat detected: SQL Injection attempt targeting admin configuration page
+- The request contains the classic SQL injection pattern "' OR '1'='1"
+- This is attempting to bypass authentication by creating a condition that always evaluates to true
+- The 200 status code indicates the request was successful, suggesting the attack may have worked
+
+Recommended actions:
+1. Immediately check if unauthorized access was gained
+2. Implement input validation on the config.php page
+3. Consider blocking the source IP (192.168.1.20)
+4. Review and patch the authentication mechanism
+```
+
+The key is creating diverse examples covering both theoretical knowledge (empty input) and practical analysis (filled input) across different cybersecurity domains like network security, web security, malware analysis, etc.
