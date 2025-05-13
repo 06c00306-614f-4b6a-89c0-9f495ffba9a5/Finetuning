@@ -22,7 +22,7 @@ The fundamental difference: Empty input requires me to retrieve and synthesize i
 ### Example 01: Empty Input (AI generates content from knowledge)
 
 **Dataset Format:**
-```
+```json
 {
     "instruction": "Explain photosynthesis in simple terms.",
     "input": "",
@@ -33,7 +33,7 @@ The fundamental difference: Empty input requires me to retrieve and synthesize i
 <br>
 
 **Simulated Chat:**
-```
+```bash
 User: Explain photosynthesis in simple terms.
 
 AI: [searches training knowledge about photosynthesis]
@@ -48,7 +48,7 @@ Photosynthesis is how plants make their own food. Plants use sunlight, water, an
 ### Example 02: Filled Input (AI transforms specific text)
 
 **Dataset Format:**
-```
+```json
 {
     "instruction": "Translate the following sentence to French.",
     "input": "I would like to visit the museum tomorrow.",
@@ -59,7 +59,7 @@ Photosynthesis is how plants make their own food. Plants use sunlight, water, an
 <br>
 
 **Simulated Chat:**
-```
+```bash
 User: Translate the following sentence to French:
       I would like to visit the museum tomorrow.
 
